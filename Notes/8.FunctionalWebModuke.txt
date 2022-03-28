@@ -1,0 +1,42 @@
+- Alternative programmign model for building RESFUL APIS in Spring WebFlux
+- It is an alternative to teh annotation based programming model but otherwise runs on teh same Reactive Core Foundation. 
+- Use the following functiona; pgming aspects:
+	- Lambdas
+	- Method References 
+	- Functional Interfaces
+
+- Router: 
+	- Restful End points are configured 
+
+- Handler :
+	- Code to handle the request
+
+- All RESTFUL APIs endpoints are configured in one single file 
+- Code is lighweight compared to the Controller alternative 
+- Bean validation is different 
+- Exceptionn HAndling is different from the Contoller Approach
+
+- We Earlier we bult the MovieInfoeo Service using Annotated Controller.
+- Now we wil lbuild the MoviewRReview Service using Functional Endpoints.
+
+
+- Path: D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\movies-review-service
+
+- Create packages routes and handler
+
+- Package Routes:
+	- ReviewRouter.java
+
+- Package Handler:
+	- ReviewHandler.java
+
+- Delete application.propertis and create application.yml
+	- configure server port as 8081
+
+- Delte settings.gradl as else it wil complain the root project is not found
+	
+
+- Run MoviesReviewServiceApplication 
+
+- url:  http://localhost:8081/v1/helloworld
+	

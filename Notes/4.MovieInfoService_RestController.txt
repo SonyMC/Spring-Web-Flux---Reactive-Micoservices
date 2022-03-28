@@ -1,0 +1,16 @@
+- Directory:D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\movies-info-service
+
+- New class for controller  : controller\MoviesInfoController.java
+
+- New class for service : service\MoviesInfoService.java
+
+- After changes. start application : MoviesInfoServiceApplication.java
+
+- Create source file for curl commads: 
+		- Resources-> right click -> new file : curl-commands.txt
+		- copy curl commands by going to following github repo and click on raw button:
+			: https://github.com/dilipsundarraj1/reactive-spring-webflux/blob/final/movies-info-service/src/main/resources/curl-commands.txt
+
+		- copy paste raw curl commands into the newly created curl-commands.txt fike
+		- open terminal in intellij and execute teh curl commands one by one:
+			- Note : set of curls will not work on windows. Use POSTMAN - Collection 'ReactiveAPIs'

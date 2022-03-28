@@ -1,0 +1,310 @@
+****Github link :https://github.com/dilipsundarraj1/reactive-spring-webflux/tree/final
+**** Local Directory : D:\OneDrive\Study\Java\Sping Web Flux - Reactive MicroServices\reactive-spring-webflux
+
+
+1) Blocking calls and Reactive programming intro- Refer PT
+	
+2) Reactive programming:
+	- Asynchronous and non blocking
+	- Data flows as an Event/Message driven steam
+		E,g:
+		- requestForData(): From app to DataSource
+			- request(n)  : fom app to DataSource . 'n' represents no. of events that app expects back from the datsource. 
+			- onNext(1), onNext(2),onNext(n) : from DataSource to app  
+			-onComplete(): from DataSource to app
+
+		- Data is puched from data source to caller
+		- Is also called a Push Based data streams model
+	- ** Reactive streams are different from Java8 streams
+	- Code used in Functional Style Code
+	- BackPressure in Data Streams:
+		- In above E.g. app myabe overwhelmed with all the responses from the Data source (i.e  OnNext(n) calls )
+		- When app sends request(n) to datasource, 'n' denotes the no. of events   
+		- For E..g request(2) will result in datasource sending back onNext(1) and onNext(2) events
+		- Once these two events (  onNext(1) and onNext(2)) are processed  by app , we have two optins:
+			- Option 1: Request more data using onNext(N)
+			- Option 2: Cancel the request: cancel()
+	- Use reactive pgming in cases where there is very load on resources : E.g. 400 trasacations per second
+
+3) Non blocking server:
+	- Netty is a Non Blocking Server using Event Loop Model instead of suing threads
+
+4) Reactive App Architecture:
+		- Non Blocking Server : Netty		
+		- Non Blocking code : Use Project Reactor for writing non blocking code
+			- Project Reator ss  a Reactive library which implements teh principles of reactive programming 
+		- Non Blocking or Reactive APIs :
+			- Spring WebFlux by default uses the Netty server and Project Reactor for building non blocking or reactive APis.    
+
+
+
+5) Reactive Streams:
+	- foundation for reactive programming 
+	- 4 Specifications:refer ppt
+		(1) Publisher Interface
+			- one method 
+				-Method:  Subscribe
+					- one parameter of type Subscriber
+			- represents the actual data source :
+				- E.g DB, Remote Service etc. 
+				- anything which holds dat afor application
+		(2) Subscriber Interface
+			- 4 methods:
+				- Method 1: onSubscribe
+					- one parameter of type Subscription 
+					-from datsource to app 
+				- Method 2:onNext
+					- One parameter of generic type
+					- from datsource to app to send next event
+				- Method 3: onError
+					- one parameter of type Throwable
+					- Exceptions are treated like data
+					- The Reactive stream is dead when an exception is thrown 
+					--from datsource to app 
+				- Method 4:onComplete
+					- Send from datasource to app to say there is no more data 
+					--from datsource to app 
+					
+ 				
+		(3) Subscription Interface 
+			- 2 methods:
+				- Method 1: request
+					- parm of type long 
+					- from app to data source
+				- Method 2: cancel
+					- fom app to data source
+		(4) Processor Interface
+			- Extends Subscriber and Publisher Interfaces
+			- Can behave as a Subscrier and Publisher
+			- Not very common 
+	
+		  
+
+
+	- Success flow:
+		(1) Subcriber to Publisher( can be DB or API):
+			- subscriber(this)
+
+		(2) Publisher to Subscriber
+			- onSubscribe()
+		(3)  Subcriber to Publisher( can be DB or API):
+			- request(n)
+		(4) Publisher to Subscriber
+			- onNext(1).....onNext(n)
+		(5) Publisher to Subscriber
+			- onComplete
+
+
+	- Error flow:
+		(1) Subcriber to Publisher( can be DB or API):
+			- subscriber(this)
+
+		(2) Publisher to Subscriber
+			- onSubscribe()
+		(3)  Subcriber to Publisher( can be DB or API):
+			- request(n)
+		(4) Publisher to Subscriber
+			- onNext(1),onNext(2)
+   		(5) Publisher to Subscriber
+			- onError
+
+6) Flow API:
+	- Released a spart of Java 9
+	- Holds the contract for reactive streams but no implementation is available as part of JRE
+		- Actual implmentation is held as part of the reactive library ( Project Reactor)  
+
+
+	
+7) Spring WebFlux:
+	- non blocking or reactive = not blockig the thread
+	- thread invlolved in handling the httprequest and httpresponse is not blocked at all 
+	- Spring WebFlux( oart of Spring Framework)  is a module that's going to help us achieve this reactive beahviour
+	- Netty Server: Ensures call from client is non-blocked.
+	- Project Reactor : Ensures call to datasounrce an d external serivces is not blocked
+
+8) Intro to Project Reactor:
+	- is an implmentation of Reactive Streams specification
+	- is a Reactive Library 
+	- Spring WebFlux uses Project Reactor by default
+	- url: https://projectreactor.io/
+	     :https://projectreactor.io/docs
+	- Sequences : Mono [0|1] and Flux[N] : Reactor offers two reactive and composable APIS
+	- Documentation ::https://projectreactor.io/docs
+		- We will be focussing on Reactor Core and Reactor Core which is thee foundation
+	- Project Reactor reference guide : https://projectreactor.io/docs/core/release/reference/
+ 
+ 9) Reactor Reactive Types: Flux & Mono:
+	- Implement the Reactive Streams Specification/Interfaces 
+	- part of reactor-core module 
+	- Flux:[N]
+		- reactive type that represents 0 to N elements 
+		- flux reactor : https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html
+				-implments Publisher and CorePublisher Interfaces 
+	- Mono:[0|1]
+		- reactive tpe that represnts 0 or 1 element
+		- mono reactor: https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
+				- implements Publisher and Core Publisher Interfaces	
+
+10)reactive-spring-webflux :
+	- Project setup:
+		- Referece GITHUB: reactive-spring-webflux
+		- Reference final GITHUB: https://github.com/dilipsundarraj1/reactive-spring-webflux/tree/final
+		- Local Directory : D:\OneDrive\Study\Java\Sping Web Flux - Reactive MicroServices\reactive-spring-webflux 
+		- Local Directory Final: D:\OneDrive\Study\Java\Sping Web Flux - Reactive MicroServices\Reference-Final
+
+		- Intellij-> New Project -> Java -> D:\OneDrive\Study\Java
+			  -> Project Name = SpringWebFlux
+
+			  -> File -> Open -> D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux
+				 	  -> Project uses gradle uinstead of maven 
+					  -> gradle wil automatically download all dependencies written in gradle file
+					  -> build.gradle:
+						- specifies project dependcies 
+						- available in D:\OneDrive\Study\Java\Sping Web Flux - Reactive MicroServices\reactive-spring-webflux\reactive-programming-using-reactor
+					  -> wait til you see the message 'BUILD SUCCESSFUL'
+
+			-> Install Lombok plugins which wil geenrate boilerplate code: 
+				-> url:https://projectlombok.org/setup/gradle
+				-> File -> Settings -> Build,Execution,Deployment-> Compiler-> Annotation Processors -> Select 'Enable annotation processing'->Select 'Obtain processors from project classpath' -> Apply   
+
+
+			-> Install SpringBoot Assistant:
+				- File -> Settings-> plugins-> search forSpring Assistant
+(11) First Flux & Mono:
+	- Refer video 6.1-first-flux.mp4
+	- Module: reactive-spring-webflux.reactive-programming-using-reactor
+	- build.gradle : contains dependicies for project reactor, logback, junit , reactor-test( to test non-blocking code) etc.		-FluxAndMonoGeneratorService.java:
+		- make exectuble class by adding main method( type psvm)
+		- code has detailed comments to explain what is happening
+
+
+
+
+(12) Junit - Automated tests:
+	- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\reactive-programming-using-reactor\src\test\java\com\learnreactiveprogramming\service
+	-Module: reactive-spring-webflux.reactive-programming-using-reactor
+	 - Class : FluxAndMonoGeneratorServiceTest.java
+	 	-  commented in detail
+
+
+(13) Map() : Transforming Data Using Operators in Project Reactor:
+ 	- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\reactive-programming-using-reactor\src
+	- Module: reactive-spring-webflux.reactive-programming-using-reactor
+	- map() Operator is used to transform the elment fromone form to another in a Reactive stream 
+	- Similar to map() operator in Streams API 
+	- Class: FluxAndMonoGeneratorService.java
+		- code has detailed comments 
+
+
+(14)  REactive streams are immutable:
+	- This means we have to chain teh functions together and cannot assign to a variable to do the transofmration on the stream
+ 	- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\reactive-programming-using-reactor\src
+	- Module: reactive-spring-webflux.reactive-programming-using-reactor
+	- Class: FluxAndMonoGeneratorService.java
+		- code has detailed comments 
+ 
+(15) Filter using filter() operator:
+ 	- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\reactive-programming-using-reactor\src
+	- Module: reactive-spring-webflux.reactive-programming-using-reactor
+	- filter() Operator is used to filter the elments from Reactive stream 
+	- Similar to filter() operator in Streams API 
+	- Class: FluxAndMonoGeneratorService.java
+		- code has detailed comments 
+
+
+(15) Map using flatMap() operator:
+ 	- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\reactive-programming-using-reactor\src
+	- Module: reactive-spring-webflux.reactive-programming-using-reactor
+	- flatMap() Operator is used to transform one source element to a Flux of 1 to N elments from Reactive stream 
+	E.g. : 'ALEX" -> Flux.just("A", "L","E","X")
+	- Use it when the transformation reurns a reactive type ( Flux or Mono)
+	- Always returns a Flux<Type>
+	- Class: FluxAndMonoGeneratorService.java
+
+
+(16) Asynchronous operations using flatMap() Operator
+- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\reactive-programming-using-reactor\src
+	- Module: reactive-spring-webflux.reactive-programming-using-reactor
+	- flatMap() Operator is used to transform one source element to a Flux of 1 to N elments from Reactive stream 
+	- Note : f.atMap(0 is used for asynchrompus and 1-to-many trnasformations
+	- flatMap() can return publisher whil map() cannot.
+
+(17)concatMap() OPerator
+- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\reactive-programming-using-reactor\src
+	- Module: reactive-spring-webflux.reactive-programming-using-reactor
+	- concatMap() Operator is similar to flatmMap() and preserves ordering unlike flatMap()
+	- However tiem taken for prcoesing will be more
+
+
+(18)flatMap() Operator in Mono
+- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\reactive-programming-using-reactor\src
+	- Module: reactive-spring-webflux.reactive-programming-using-reactor
+	- Can be used in a mono when a transofrmation returns a mono
+	- Used in REST API calls or any kinfd of functionality that can be done asynchronously
+
+
+		- code has detailed comments 
+
+(19)flatMapMany() in Mono
+- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\reactive-programming-using-reactor\src
+	- Module: reactive-spring-webflux.reactive-programming-using-reactor
+	- Can be used in a mono when a transofrmation returns a mono
+	- Very similar to flatMap(0 with one difference 
+	- Use when your Mono transformation logic returns a Flux instead of a Mono
+
+(20)transform() operator 
+- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\reactive-programming-using-reactor\src
+	- Module: reactive-spring-webflux.reactive-programming-using-reactor
+	- Used to tranform from one type to another
+	- Accepts Function Functional Interface
+	 	-Input  : Publisher(Flux or Mono) 
+		- Output : Publisher(Flux or Mono)
+
+
+(21)defaultIfEmpty() & switchIfEmptyoperator 
+- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\reactive-programming-using-reactor\src
+	- Module: reactive-spring-webflux.reactive-programming-using-reactor
+	- Used for default values in case data source does not return any values 
+
+(22) Combining Reactive Streams with concat() and concatWith():
+- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\reactive-programming-using-reactor\src
+	- Module: reactive-spring-webflux.reactive-programming-using-reactor
+	- used to combine two reactive streams into one
+		- happens in a sequence 
+		- first one is subscribed first and completes 
+		- second one is subscribed after that and then completes 
+		- concat() : static method in flux
+		- concatWith() : instance method in Flux and Mono
+		- Both of these operators work vey similarly  
+
+
+
+(23) Combining Reactive Streams with merge() and mergeWith():
+- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\reactive-programming-using-reactor\src
+	- Module: reactive-spring-webflux.reactive-programming-using-reactor
+	- used to combine two publishers into one
+	- both publishers are sunscribed at same time ( parallel processing) 
+	- first one is subscibes, then second one, then first, then second and so on 
+	- merge() : static method which is part of flux
+	- mergeWith() : instance method which is part of both flux and mono
+
+(24) Combining Reractive streams with mergeSequential() operator
+- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\reactive-programming-using-reactor\src
+	- Module: reactive-spring-webflux.reactive-programming-using-reactor
+	- used to combine two publishers into one
+	- both publishers are subscribed at same time 
+	- however the merge happens sequentially( not parallely)  
+
+
+(25) Combining Reactive Streams using zip() and zipWith(0 Operators
+- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\reactive-programming-using-reactor\src
+	- Module: reactive-spring-webflux.reactive-programming-using-reactor
+	- used to combine two publishers into one
+	- difference between ths and other operators is that this waits for all publishers involved in the transformation to emit one element and then move onto the next element 
+		- continues until one publisher sends an onEcomplete event
+	- zip():
+		- static method 
+		- can be used to merge 	upto 2 to 8 publishers (Flux or Mono) 	into one
+	- zipWith():
+		- This is an instance method that's part of teh FLux and Mono
+	- Publishers are subscribed eagerly

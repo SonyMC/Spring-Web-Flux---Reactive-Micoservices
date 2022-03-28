@@ -1,0 +1,15 @@
+- Retrying failed calls:
+	- Retry the failed call N number of times before giving up 
+	- Retry the failed call with a backoff( i.e retry after a specific interval) 
+	- Retry specific exceptions
+		- E.g. Retry only 5xx not 4xx Exceptions
+
+-= Code can be found in : 
+
+	- Package : util
+		- RetryUtil.java
+	- Package : movies-service:
+		- MoviesInfoRestClient.java
+		- ReviewsRestClient.java 
+
+  

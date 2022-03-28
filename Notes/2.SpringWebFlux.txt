@@ -1,0 +1,97 @@
+Spring Documentation:Refer https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html
+
+Directory: D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux
+
+Setup:
+-Spring initiliazer : 
+-Note : Spring Assistant is only available in IntellIJ ultimate version and not in communit version. Get around is to goto https://start.spring.io/ and create project from there
+	- Gradle project 
+	- Spring Boot : 2.6.3
+        - Group : com.reactivespring
+	- Artifact: movies-info-service
+	- Name:movies-info-service
+	- Description: movies-info-service
+	- Package name: com.reactivespring
+	- Java version:11
+	- Dependencies: Spring Boot Dev Tools, Lombok, Spring Configuration Processor, Spring Reactive Web, Spring Data Reactive MongoDB, Validation, Embedded MongoDB Databse
+
+ 
+- Unzip geenrated project and move to  D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux
+- reactive-spring-webflux/settings.gradle: include 'movies-info-service'
+	- click on gradle refresh ( small elphant symbol on the rhs of the settings.gradle) 
+-  Remove the settings.gradle file in reactive-spring-webflux/movies-info-service/settings.gradle
+- Run main :
+	- Will fail with connection refused error as we have not yet installed MongoDB
+- Install MongoDB:
+	- Refer https://github.com/dilipsundarraj1/reactive-spring-webflux/			
+	- https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/		
+		- Install both MongoDB and shell(mongosh)
+		- Installation directory: C:\Program Files\MongoDB\Server\5.0
+		- DB configuration file: C:\Program Files\MongoDB\Server\5.0\bin\mongod.cfg
+		- MongoDB:
+			- Service configuration: 
+				- Run service as Network Service user which uses default Windows creds 
+			- Service name: MongoDB
+			- Optional: Install MongoDB Compass : GUI 
+		- OPtional : Mongoshell : 
+			- url: https://docs.mongodb.com/mongodb-shell/install/
+			- cmd:
+			- Open a new Command Interpreter and enter mongosh.exe to connect to MongoDB
+		- Optional: MongoDB CLI for Cloud
+			- url: https://www.mongodb.com/try/download/mongocli 
+
+
+
+-  After installing mongodb, run main agai. Thsi time the Spring application should be up and running
+
+- Build a simple non blocking API - Flux:
+	- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\movies-info-service
+	- Netty is teh default server for handlign network traffic
+	- url: http://localhost:8080/flux
+	- test : either open terminal in Intellij and run command : curl http://localhost:8080/flux 
+			OR
+		paste url 'http://localhost:8080/flux' in browser  
+	- this is a non blocking api with asychronous processing :
+		- verify in log output in terminal that a single thread is being used to process teh results of the flux. In below snippet teh thread is ctor-http-nio-4 
+		2022-02-03 14:35:37.082  INFO 47196 --- [ctor-http-nio-4] reactor.Flux.Array.2                     : | onSubscribe([Synchronous Fuseable] FluxArray.ArraySubscription)
+2022-02-03 14:35:37.082  INFO 47196 --- [ctor-http-nio-4] reactor.Flux.Array.2                     : | request(unbounded)
+2022-02-03 14:35:37.082  INFO 47196 --- [ctor-http-nio-4] reactor.Flux.Array.2                     : | onNext(1)
+2022-02-03 14:35:37.082  INFO 47196 --- [ctor-http-nio-4] reactor.Flux.Array.2                     : | onNext(2)
+2022-02-03 14:35:37.082  INFO 47196 --- [ctor-http-nio-4] reactor.Flux.Array.2                     : | onNext(3)
+2022-02-03 14:35:37.082  INFO 47196 --- [ctor-http-nio-4] reactor.Flux.Array.2                     : | onComplete()
+
+	- Streaming endpoint: 
+		- is a kind of endpoint which continously sends updates to the clients as the new data arrives
+		- concept is similar to SSE ( Server Side Events)
+		- Easy to implment in Spring Webflux
+		- durl http://localhost:8080/stream
+			- will show continous stream of data
+
+
+Introduction to Automated Tests using JUNit 5
+------------------------------------------------------
+	- Integration test : tests the application end to end 
+	-  Unit test        : tests only the class and method of interest and mocks the next layer of the code 
+	- Add teh following to build.gradle :
+// Specify source directories for unit testign and integration testing
+sourceSets {
+	test{
+		java.srcDirs = ['src/test/java/unit', 'src/test/java/intg']
+	}
+}
+	- Click on the refresh icon on RHS pane which will make the java a non-source directory 
+ 	 	- If you now click on test/java fonlder -> New -> Directory -> two options will be shown : 'intg' and 'unit'
+			- Create 'intg' and 'unit' directories buy following above option
+			- Note that the created directories will be in green indicating that these are source folders
+
+	-FluxAndMonoController.java:
+		- Very simple class which does not have any interactions with data repository or other classes. Hence only unit testing will do.
+		- ctrl + shift + t -> Create new test 
+			or
+		- Alt + insert -> test
+			or
+		- Right click on pane -> Geenrate -> test 
+
+			- Class name: FluxAndMonoControllerTest
+				- select function you want to test -> seelct unit test folder we created above
+			

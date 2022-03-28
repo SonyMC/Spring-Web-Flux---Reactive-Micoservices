@@ -1,0 +1,15 @@
+- application.yml : set logging at debug level
+	- this is to look at the treading model and observe teh tread giving request and sending back response
+	- startup MoviesInfoServiceApplication.java
+	- send create request usign postman 
+	- in the log search for 'new http connection'
+	- Note teh trhread as givenin teh square brackets : [ctor-http-nio-3]  : ctor is  aserver thread
+	= Follow the tread to see what
+
+- Channel: represents an open connection between client and servers. Request ans REpaonse is send through same channel
+ 
+-Event Loop: 
+	- An event loop is powered by one single thread
+		- NodeJS uses teh same pattern 
+		- NodeJS has just one thread/one eventloop to handle client requests 
+	 - Number of Eventloops to handle the request is equal to no. of cores in your machine 	

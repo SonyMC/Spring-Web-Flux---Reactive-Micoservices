@@ -1,0 +1,11 @@
+D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\movies-info-service\src\test\java\unit\com\reactivespring\controller\MoviesInfoControllerUnitTest.java
+
+
+- MoviesInforController.java has a dependency on MoviesInfoService( defined using 'private MoviesInfoService moviesInfoService') 
+- We are going to mock MoviesInfoService
+
+
+
+- Customozing error messages:
+	- New package: exceptionHandler
+	- New class : exceptionHandler/GlobaleError Handler.java

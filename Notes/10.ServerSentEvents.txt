@@ -1,0 +1,38 @@
+SSE : Server Sent Event
+--------------------------
+1) Client makes a cal lto the Server( API) . Once cal lis made , response from Server is sent in form of events( non blocling).
+   - E.g. : Uber app real time updae of driver location
+2) Server will continously notify the client 
+3) It is unideirectional : once the connection is establiched between client and server
+4) Long lived client connections
+
+
+Demo: Publish MovieInfo as a SSE
+	- Reference : Package: movies-inof-service -> FluxAndMonoController.stream()
+
+		- Start MovieInfoServiceApplication.java
+		- Stream endpoint: http://localhost:8080/stream
+
+
+
+Sink
+-----
+- To implement SSE in Package: movies-info-service ->MoviesInfoController.addMovieInfo	
+	- Require an API which will act as both Publisher and Subscriber
+	- 
+
+- Refer https://projectreactor.io/docs/core/release/reference/
+
+        // 1. Publish the added movie info
+        // 2. Expose teh date as SSE( ServerSentEvent) endpoint
+        // 3. subscribe to the published movie-info
+
+-In Reactor a sink is a class that allows safe manual triggering of signals. It can either be associated to a subscription (from inside an operator) or completely standalone.
+
+- SInk API can be used to act as both a publicher and Subscriber
+
+- Reference:
+	Package: movies-info-service -> test -> unit ->sinks-> SinksTest.java
+
+	
+	

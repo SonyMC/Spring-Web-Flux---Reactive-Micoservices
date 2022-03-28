@@ -1,0 +1,25 @@
+- Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\movies-info-services
+- New package : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\movies-info-service\src\main\java\com\reactivespring\domain
+	- New class for
+- New package: D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\movies-info-service\src\main\java\com\reactivespring\repository
+
+	- New interface for Repository: MovieInfoRepository	
+
+- Create configuration yml file in resources :resounrces/application.yml
+	- Note: We can use  application.properties also, However since we want to use yaml file, we will deelte applicaiton.properties as else it will take preceedence 
+	- 'application' file spring's auto config features
+	
+
+
+- Create integration tests for Repostory class : MovieInfoRepository	
+		- Create test in Integration folder
+		- build.gradle contains teh following deepndy for testign integration with mongodb by spinning up an embedded mongodb instance for testing:
+			- testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo'
+			- actual mongodb should be installe din your machine to run this integration test
+		- When you run teh integration test, you can see in embedded mongodb being spun up in teh logs. 
+		- Also note the port published in org.mongodb.driver.cluster: localhost:61442. Ths iwill change dynamically
+
+
+				
+		
+		

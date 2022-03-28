@@ -1,0 +1,7 @@
+map() -> This operator is used when you have simple transformations. The output of this operator cannot be a reactive type.
+
+Example : abc -> "ABC" (Lower Case String to Upper case String)
+
+flatMap() -> This operator is used when you have the return type is a Reactive Type(Flux or Mono)
+
+Example: Saving a value into the DB using the reactive Adapter returns a Mono<Type>

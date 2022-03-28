@@ -1,0 +1,10 @@
+D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\movies-info-service
+
+Refer: search for 'web on reactive stack' : https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html
+
+WebClient:
+
+- Is a reactive non blocking Rest client 
+- uses functional styel API 
+- It allows the application to interact with other services in a non-blocking fashion
+- It is autoconfigured in to the application by Spring Boot

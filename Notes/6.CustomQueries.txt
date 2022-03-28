@@ -1,0 +1,5 @@
+Local Directory : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux
+Project : D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\movies-info-service
+
+- We will add customized querues to MovieInfoRepository.java 
+- D:\OneDrive\Study\Java\Spring Web Flux - Reactive MicroServices\reactive-spring-webflux\movies-info-service\src\main\java\com\reactivespring\repository\MovieInfoRepository.java
